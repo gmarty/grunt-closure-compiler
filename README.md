@@ -1,12 +1,12 @@
 # grunt-closure-compiler
 
-A Grunt task for Closure Compiler.
+A Grunt task for [Closure Compiler](https://developers.google.com/closure/compiler/).
 
 ## Getting Started
 
-First you need to build Closure Compiler from the source. Set up an environment variable called `CLOSURE_PATH` that points to your Closure Compiler dir (see [details below](#closure-compiler-installation)).
+First you need to build [Closure Compiler from the source](http://code.google.com/p/closure-compiler/). Set up an environment variable called `CLOSURE_PATH` that points to your Closure Compiler dir (see [details below](#closure-compiler-installation)).
 
-Install this module on your project's [grunt.js gruntfile][https://github.com/cowboy/grunt/blob/master/docs/getting_started.md] with: `npm install grunt-closure-compiler`
+Install this module on your project's [grunt.js gruntfile](https://github.com/cowboy/grunt/blob/master/docs/getting_started.md) with: `npm install grunt-closure-compiler`
 
 Then register the task by adding the following line to your `grunt.js` gruntfile:
 ```javascript
@@ -64,7 +64,7 @@ This method is preferred because doing so make it possible to use easily contrib
 
 ### `js` property
 
-This task is a [multi task][https://github.com/cowboy/grunt/blob/master/docs/types_of_tasks.md], you can specify several targets. The task can minify many scripts at a time.
+This task is a [multi task](https://github.com/cowboy/grunt/blob/master/docs/types_of_tasks.md), you can specify several targets. The task can minify many scripts at a time.
 
 `js` can be an array if you need to concatenate several files to a target.
 
@@ -117,7 +117,7 @@ grunt.initConfig({
 });
 ```
 
-When defining externs, you can easily reference Closure Compiler builtin externs using <%= process.env.CLOSURE_PATH %> Grunt template:
+When defining externs, you can easily reference Closure Compiler builtin externs using `<%= process.env.CLOSURE_PATH %>` Grunt template:
 ```javascript
 grunt.initConfig({
   'closure-compiler': {
