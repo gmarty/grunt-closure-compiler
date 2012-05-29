@@ -6,7 +6,10 @@ A Grunt task for [Closure Compiler](https://developers.google.com/closure/compil
 
 First you need to build [Closure Compiler from the source](http://code.google.com/p/closure-compiler/). Set up an environment variable called `CLOSURE_PATH` that points to your Closure Compiler dir (see [details below](#closure-compiler-installation)).
 
-Install this module on your project's [grunt.js gruntfile](https://github.com/cowboy/grunt/blob/master/docs/getting_started.md) with: `npm install grunt-closure-compiler`
+Install this module on your project's [grunt.js gruntfile](https://github.com/cowboy/grunt/blob/master/docs/getting_started.md):
+```
+npm install grunt-closure-compiler
+```
 
 Then register the task by adding the following line to your `grunt.js` gruntfile:
 ```javascript
