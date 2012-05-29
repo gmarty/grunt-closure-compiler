@@ -31,7 +31,7 @@ grunt.initConfig({
 
 `js` is the only property required.
 
-If `jsOutputFile` property is set, the script will be minified and save to the file specified. Otherwise it will be output to the command line.
+If `jsOutputFile` property is set, the script will be minified and saved to the file specified. Otherwise it will be output to the command line.
 
 Optionally, several parameters can be passed to `options` object.
 
@@ -66,7 +66,9 @@ This method is preferred because doing so make it possible to use easily contrib
 
 This task is a [multi task][types_of_tasks], you can specify several targets. The task can minify many scripts at a time.
 
-`js` can be an array if you need to concatenate several files to a target. You can use Grunt `<config:...>` or `*` based syntax to have the file list expanded:
+`js` can be an array if you need to concatenate several files to a target.
+
+You can use Grunt `<config:...>` or `*` based syntax to have the file list expanded:
 ```javascript
 grunt.initConfig({
   'closure-compiler': {
@@ -77,7 +79,10 @@ grunt.initConfig({
     frontend_debug: {
       js: [
         '<config:closure-compiler.frontend.js>',
+        // Will expand to 'static/src/frontend.js'
         'static/src/debug.*.js'
+        // Will expand to 'static/src/debug.api.js',
+        //   'static/src/debug.console.js'...
       ],
       jsOutputFile: 'static/js/frontend.debug.js',
       options: {
@@ -93,7 +98,7 @@ grunt.initConfig({
 
 Properties in `options` are mapped to Closure Compiler command line. Just pass options as a map of option-value.
 
-If you need to pass the same options several times, make it an array:
+If you need to pass the same options several times, make it an array. See `externs` below:
 ```javascript
 grunt.initConfig({
   'closure-compiler': {
@@ -129,6 +134,6 @@ grunt.initConfig({
 
 ## Note
 
-grunt-closure-compiler development was fonded by [Dijiwan](http://www.dijiwan.com/). It is used on a daily basis to minify our frontend JavaScript.
+grunt-closure-compiler development was founded by [Dijiwan](http://www.dijiwan.com/). Our team uses it on a daily basis to minify our frontend JavaScript.
 
 The directory structure was inspired by [grunt-less](https://github.com/jharding/grunt-less), a Grunt task for Less.
