@@ -1,0 +1,44 @@
+{
+  "name": "grunt-closure-compiler",
+  "description": "A Grunt task for Closure Compiler.",
+  "version": "0.0.1",
+  "homepage": "https://github.com/gmarty/grunt-closure-compiler",
+  "author": {
+    "name": "Guillaume Marty",
+    "email": "edo999@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/gmarty/grunt-closure-compiler.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gmarty/grunt-closure-compiler/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/gmarty/grunt-closure-compiler/blob/master/LICENSE-MIT"
+    }
+  ],
+  "main": "grunt.js",
+  "bin": {
+    "grunt-closure-compiler": "bin/grunt-closure-compiler"
+  },
+  "engines": {
+    "node": ">=0.6.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "dependencies": {
+    "grunt": "~0.3.7"
+  },
+  "devDependencies": {
+    "grunt": "~0.3.7"
+  },
+  "keywords": [
+    "Closure Compiler",
+    "Minification",
+    "Performance"
+  ]
+}
