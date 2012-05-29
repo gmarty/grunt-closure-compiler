@@ -4,9 +4,9 @@ A Grunt task for Closure Compiler.
 
 ## Getting Started
 
-First you need to build Closure Compiler from the source. Set up an environment variable called `CLOSURE_PATH` that points to your Closure Compiler dir (see details below).
+First you need to build Closure Compiler from the source. Set up an environment variable called `CLOSURE_PATH` that points to your Closure Compiler dir (see [details below](#closure-compiler-installation)).
 
-Install this module on your project's [grunt.js gruntfile][getting_started] with: `npm install grunt-closure-compiler`
+Install this module on your project's [grunt.js gruntfile][https://github.com/cowboy/grunt/blob/master/docs/getting_started.md] with: `npm install grunt-closure-compiler`
 
 Then register the task by adding the following line to your `grunt.js` gruntfile:
 ```javascript
@@ -58,13 +58,13 @@ ant clean
 ant
 ```
 
-When creating the `CLOSURE_PATH` environment vairable, make sure to have it point to the `closure-compiler` dir created earlier (and not to the `build` subdirectory where the jar is located).
+When creating the `CLOSURE_PATH` environment variable, make sure to have it point to the `closure-compiler` dir created earlier (and not to the `build` subdirectory where the jar is located).
 
 This method is preferred because doing so make it possible to use easily contributed externs. In case you're wondering, Closure Compiler utilizes continuous integration, so it's unlikely to break.
 
 ### `js` property
 
-This task is a [multi task][types_of_tasks], you can specify several targets. The task can minify many scripts at a time.
+This task is a [multi task][https://github.com/cowboy/grunt/blob/master/docs/types_of_tasks.md], you can specify several targets. The task can minify many scripts at a time.
 
 `js` can be an array if you need to concatenate several files to a target.
 
@@ -137,3 +137,28 @@ grunt.initConfig({
 grunt-closure-compiler development was founded by [Dijiwan](http://www.dijiwan.com/). Our team uses it on a daily basis to minify our frontend JavaScript.
 
 The directory structure was inspired by [grunt-less](https://github.com/jharding/grunt-less), a Grunt task for Less.
+
+## License
+
+Copyright (c) 2012 Guillaume Marty
+
+Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without
+restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following
+conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
