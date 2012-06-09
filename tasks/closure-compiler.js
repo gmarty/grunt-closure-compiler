@@ -29,6 +29,10 @@ module.exports = function(grunt) {
         data = this.data,
         done = this.async();
 
+    if (data.externs == undefined) {
+      data.externs = [];
+    }
+
     data.js = grunt.file.expandFiles(data.js);
     data.externs = grunt.file.expandFiles(data.externs);
 
