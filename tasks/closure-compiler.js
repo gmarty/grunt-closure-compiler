@@ -45,15 +45,12 @@ module.exports = function(grunt) {
 
     // Build command line.
     command += ' --js ' + data.js.join(' --js ');
+    command += ' --externs ' + data.externs.join(' --externs ');
 
     if (data.jsOutputFile) {
       command += ' --js_output_file ' + data.jsOutputFile;
       reportFile = data.jsOutputFile + '.report.txt';
     }
-
-    data.externs.forEach(function(file) {
-      command += ' --externs ' + file;
-    });
 
     for (var directive in data.options) {
       if (Array.isArray(data.options)) {
