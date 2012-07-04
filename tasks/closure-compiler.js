@@ -53,8 +53,8 @@ module.exports = function(grunt) {
     }
 
     for (var directive in data.options) {
-      if (Array.isArray(data.options)) {
-        command += ' --' + directive + ' ' + data.js.join(' --' + directive + ' ');
+      if (Array.isArray(data.options[directive])) {
+        command += ' --' + directive + ' ' + data.options[directive].join(' --' + directive + ' ');
       } else {
         command += ' --' + directive + ' ' + String(data.options[directive]);
       }
