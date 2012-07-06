@@ -45,7 +45,11 @@ module.exports = function(grunt) {
 
     // Build command line.
     command += ' --js ' + data.js.join(' --js ');
-    command += ' --externs ' + data.externs.join(' --externs ');
+    
+    if (data.js.length) {
+      // Add --externs flag only if valid externs are present.
+      command += ' --externs ' + data.externs.join(' --externs ');
+    }
 
     if (data.jsOutputFile) {
       command += ' --js_output_file ' + data.jsOutputFile;
