@@ -4,7 +4,9 @@ A Grunt task for [Closure Compiler](https://developers.google.com/closure/compil
 
 ## Getting Started
 
-First you need to build [Closure Compiler from the source](http://code.google.com/p/closure-compiler/). Set up an environment variable called `CLOSURE_PATH` that points to your Closure Compiler dir (see [details below](#closure-compiler-installation)).
+First you need to download a [build of Closure Compiler](http://code.google.com/p/closure-compiler/downloads/list) or build it [from the source](http://code.google.com/p/closure-compiler/source/checkout) (see [details below](#closure-compiler-installation-from-source)).
+
+Optionally, you can set up an environment variable called `CLOSURE_PATH` that points to your Closure Compiler dir (see [details below](#set-up-the-environment-variable)).
 
 Install this module on your project's [grunt.js gruntfile](https://github.com/cowboy/grunt/blob/master/docs/getting_started.md):
 ```
@@ -21,6 +23,7 @@ Then you can minify JavaScript calling:
 grunt.initConfig({
   'closure-compiler': {
     frontend: {
+      closurePath: '/src/to/closure-compiler',
       js: 'static/src/frontend.js',
       jsOutputFile: 'static/js/frontend.min.js',
       options: {
@@ -32,7 +35,9 @@ grunt.initConfig({
 });
 ```
 
-`js` is the only property required.
+`closurePath` is required if you choose not to set up the `CLOSURE_PATH` environment variable. In this case, it should point to the install dir of Closure Compiler (not the subdirectory where the `compiler.jar` file is located).
+
+`js` property is always required.
 
 If `jsOutputFile` property is set, the script will be minified and saved to the file specified. Otherwise it will be output to the command line.
 
@@ -40,7 +45,7 @@ Optionally, several parameters can be passed to `options` object.
 
 ## Documentation
 
-### Closure Compiler installation
+### Closure Compiler installation from source
 
 Install dependencies:
 ```
@@ -61,9 +66,16 @@ ant clean
 ant
 ```
 
-When creating the `CLOSURE_PATH` environment variable, make sure to have it point to the `closure-compiler` dir created earlier (and not to the `build` subdirectory where the jar is located).
+### Set up the environment variable
 
-This method is preferred because doing so make it possible to use easily contributed externs. In case you're wondering, Closure Compiler utilizes continuous integration, so it's unlikely to break.
+If you create the `CLOSURE_PATH` environment variable, make sure to have it pointing to the `closure-compiler` dir created earlier (and not to the `build` subdirectory where the jar is located).
+
+This method is preferred because
+
+* You don't have to specify the `closurePath` each time.
+* It makes it easy to use contributed externs.
+
+In case you're wondering, Closure Compiler utilizes continuous integration, so it's unlikely to break.
 
 ### `js` property
 
@@ -101,7 +113,7 @@ grunt.initConfig({
 
 Properties in `options` are mapped to Closure Compiler command line. Just pass options as a map of option-value.
 
-If you need to pass the same options several times, make it an array. See `externs` below:
+If you need to pass the same options several times, make it an array. See `define` below:
 ```javascript
 grunt.initConfig({
   'closure-compiler': {
@@ -109,27 +121,40 @@ grunt.initConfig({
       js: 'static/src/frontend.js',
       jsOutputFile: 'static/js/frontend.min.js',
       options: {
-        externs: [
-          'framework.js',
-          'service_api.js',
-          'new_shim.js'
-        ]
+        compilation_level: 'ADVANCED_OPTIMIZATIONS',
+        language_in: 'ECMASCRIPT5_STRICT',
+        define: [
+          '"DEBUG=false"',
+          '"UI_DELAY=500"'
+        ],
       }
     }
   }
 });
 ```
 
-When defining externs, you can easily reference Closure Compiler builtin externs using `<%= process.env.CLOSURE_PATH %>` Grunt template:
+When defining externs, if you added the `CLOSURE_PATH` environment variable you can easily reference Closure Compiler builtin externs using `<%= process.env.CLOSURE_PATH %>` Grunt template:
 ```javascript
 grunt.initConfig({
   'closure-compiler': {
     frontend: {
       js: 'static/src/frontend.js',
       jsOutputFile: 'static/js/frontend.min.js',
-      options: {
-        externs: '<%= process.env.CLOSURE_PATH %>/contrib/externs/jquery-1.7.js'
-      }
+      externs: '<%= process.env.CLOSURE_PATH %>/contrib/externs/jquery-1.7.js'
+    }
+  }
+});
+```
+
+Otherwise, use the `<config>` Grunt template:
+```javascript
+grunt.initConfig({
+  'closure-compiler': {
+    frontend: {
+      closurePath: '/src/to/closure-compiler',
+      js: 'static/src/frontend.js',
+      jsOutputFile: 'static/js/frontend.min.js',
+      externs: '<config:closure-compiler.frontend.closurePath>/contrib/externs/jquery-1.7.js'
     }
   }
 });

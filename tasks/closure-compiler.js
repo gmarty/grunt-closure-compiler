@@ -23,11 +23,21 @@ module.exports = function(grunt) {
       return false;
     }
 
-    var closureCompilerDir = process.env.CLOSURE_PATH,
-        command = 'java -jar ' + closureCompilerDir + '/build/compiler.jar',
+    var closurePath = '',
         reportFile = '',
         data = this.data,
         done = this.async();
+
+    if (data.closurePath) {
+      closurePath = data.closurePath;
+    } else if (process.env.CLOSURE_PATH) {
+      closurePath = process.env.CLOSURE_PATH;
+    } else {
+      grunt.warn('Missing path to Closure Compiler.');
+      return false;
+    }
+
+    var command = 'java -jar ' + closurePath + '/build/compiler.jar';
 
     data.js = grunt.file.expandFiles(data.js);
 
