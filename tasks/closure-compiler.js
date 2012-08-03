@@ -29,12 +29,7 @@ module.exports = function(grunt) {
         data = this.data,
         done = this.async();
 
-    if (data.externs == undefined) {
-      data.externs = [];
-    }
-
     data.js = grunt.file.expandFiles(data.js);
-    data.externs = grunt.file.expandFiles(data.externs);
 
     // Sanitize options passed.
     if (!data.js.length) {
@@ -45,11 +40,15 @@ module.exports = function(grunt) {
 
     // Build command line.
     command += ' --js ' + data.js.join(' --js ');
-    command += ' --externs ' + data.externs.join(' --externs ');
 
     if (data.jsOutputFile) {
       command += ' --js_output_file ' + data.jsOutputFile;
       reportFile = data.jsOutputFile + '.report.txt';
+    }
+
+    if (data.externs) {
+      data.externs = grunt.file.expandFiles(data.externs);
+      command += ' --externs ' + data.externs.join(' --externs ');
     }
 
     for (var directive in data.options) {
@@ -72,7 +71,7 @@ module.exports = function(grunt) {
       }
 
       // If OK, calculate gzipped file size.
-      if (data.jsOutputFile) {
+      if (reportFile.length) {
         var min = fs.readFileSync(data.jsOutputFile, 'utf8');
         grunt.helper('min_info', min, function(err) {
           if (err) {
