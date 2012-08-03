@@ -61,6 +61,10 @@ module.exports = function(grunt) {
       command += ' --externs ' + data.externs.join(' --externs ');
     }
 
+    if (data.options.externs) {
+      data.options.externs = grunt.file.expandFiles(data.options.externs);
+    }
+
     for (var directive in data.options) {
       if (Array.isArray(data.options[directive])) {
         command += ' --' + directive + ' ' + data.options[directive].join(' --' + directive + ' ');
