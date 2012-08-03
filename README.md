@@ -9,7 +9,7 @@ First you need to download a [build of Closure Compiler](http://code.google.com/
 Optionally, you can set up an environment variable called `CLOSURE_PATH` that points to your Closure Compiler dir (see [details below](#set-up-the-environment-variable)).
 
 Install this module on your project's [grunt.js gruntfile](https://github.com/cowboy/grunt/blob/master/docs/getting_started.md):
-```
+```bash
 npm install grunt-closure-compiler
 ```
 
@@ -48,19 +48,19 @@ Optionally, several parameters can be passed to `options` object.
 ### Closure Compiler installation from source
 
 Install dependencies:
-```
+```bash
 sudo apt-get install svn ant openjdk-6-jdk
 ```
 
 Then checkout the source from SVN and build:
-```
+```bash
 svn checkout http://closure-compiler.googlecode.com/svn/trunk/ closure-compiler
 cd closure-compiler
 ant
 ```
 
 To refresh your build, simply call:
-```
+```bash
 svn up
 ant clean
 ant
@@ -140,7 +140,9 @@ grunt.initConfig({
     frontend: {
       js: 'static/src/frontend.js',
       jsOutputFile: 'static/js/frontend.min.js',
-      externs: '<%= process.env.CLOSURE_PATH %>/contrib/externs/jquery-1.7.js'
+      options: {
+        externs: '<%= process.env.CLOSURE_PATH %>/contrib/externs/jquery-1.7.js',
+      }
     }
   }
 });
@@ -154,7 +156,9 @@ grunt.initConfig({
       closurePath: '/src/to/closure-compiler',
       js: 'static/src/frontend.js',
       jsOutputFile: 'static/js/frontend.min.js',
-      externs: '<config:closure-compiler.frontend.closurePath>/contrib/externs/jquery-1.7.js'
+      options: {
+        externs: '<config:closure-compiler.frontend.closurePath>/contrib/externs/jquery-1.7.js'
+      }
     }
   }
 });
