@@ -10,7 +10,7 @@ Optionally, you can set up an environment variable called `CLOSURE_PATH` that po
 
 Install this module on your project's [grunt.js gruntfile](https://github.com/cowboy/grunt/blob/master/docs/getting_started.md):
 ```bash
-npm install grunt-closure-compiler
+$ npm install grunt-closure-compiler
 ```
 
 Then register the task by adding the following line to your `grunt.js` gruntfile:
@@ -49,33 +49,53 @@ Optionally, several parameters can be passed to `options` object.
 
 Install dependencies:
 ```bash
-sudo apt-get install svn ant openjdk-6-jdk
+$ sudo apt-get install svn ant openjdk-6-jdk
 ```
 
 Then checkout the source from SVN and build:
 ```bash
-svn checkout http://closure-compiler.googlecode.com/svn/trunk/ closure-compiler
-cd closure-compiler
-ant
+$ svn checkout http://closure-compiler.googlecode.com/svn/trunk/ closure-compiler
+$ cd closure-compiler
+$ ant
 ```
 
 To refresh your build, simply call:
 ```bash
-svn up
-ant clean
-ant
+$ svn up
+$ ant clean
+$ ant
+```
+
+#### Mac
+
+Mac users can install it from brew:
+```bash
+$ brew install closure-compiler
 ```
 
 ### Set up the environment variable
 
-If you create the `CLOSURE_PATH` environment variable, make sure to have it pointing to the `closure-compiler` dir created earlier (and not to the `build` subdirectory where the jar is located).
-
-This method is preferred because
+Setting up a `CLOSURE_PATH` environment variable is preferred because:
 
 * You don't have to specify the `closurePath` each time.
 * It makes it easy to use contributed externs.
 
 In case you're wondering, Closure Compiler utilizes continuous integration, so it's unlikely to break.
+
+If you create the `CLOSURE_PATH` environment variable, make sure to have it pointing to the `closure-compiler` dir created earlier (and not to the `build` subdirectory where the jar is located).
+
+#### Mac
+
+On Mac, when installed with brew, you can get the install path using:
+```bash
+$ brew --prefix closure-compiler
+/usr/local/Cellar/closure-compiler/20120710
+```
+
+Just append `/libexec` to what you get. In this example, you should use the following path:
+```
+/usr/local/Cellar/closure-compiler/20120710/libexec/
+```
 
 ### `js` property
 
