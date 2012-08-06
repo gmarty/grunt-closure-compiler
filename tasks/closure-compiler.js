@@ -1,5 +1,7 @@
 module.exports = function(grunt) {
 
+  'use strict';
+
   var exec = require('child_process').exec,
       fs = require('fs'),
       gzip = require('zlib').gzip;
@@ -59,10 +61,18 @@ module.exports = function(grunt) {
     if (data.externs) {
       data.externs = grunt.file.expandFiles(data.externs);
       command += ' --externs ' + data.externs.join(' --externs ');
+
+      if (!data.externs.length) {
+        delete data.externs;
+      }
     }
 
     if (data.options.externs) {
       data.options.externs = grunt.file.expandFiles(data.options.externs);
+
+      if (!data.options.externs.length) {
+        delete data.options.externs;
+      }
     }
 
     for (var directive in data.options) {
