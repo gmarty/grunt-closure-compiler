@@ -12,30 +12,23 @@ module.exports = function(grunt) {
 
   grunt.registerMultiTask('closure-compiler', 'Minify JS files using Closure Compiler.', function() {
 
-    // Check for env var.
-    if (process.env.CLOSURE_PATH === undefined) {
-      grunt.log.error('' +
-          '/!\\'.red +
-          ' Set an environment variable called ' +
-          'CLOSURE_PATH'.red +
-          ' and\nmake it point to your root install of Closure Compiler.' +
-          '\n');
-
-      // Return an error and stop grunt.
-      return false;
-    }
-
     var closurePath = '',
         reportFile = '',
         data = this.data,
         done = this.async();
-
+        
+    // Check for closure path.
     if (data.closurePath) {
       closurePath = data.closurePath;
     } else if (process.env.CLOSURE_PATH) {
       closurePath = process.env.CLOSURE_PATH;
     } else {
-      grunt.warn('Missing path to Closure Compiler.');
+      grunt.log.error('' +
+          '/!\\'.red +
+          ' Set an environment variable called ' +
+          'CLOSURE_PATH'.red + ' or the build parameter' + 'closurePath'.red +
+          ' and\nmake it point to your root install of Closure Compiler.' +
+          '\n');
       return false;
     }
 
