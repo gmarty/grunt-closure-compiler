@@ -26,7 +26,7 @@ module.exports = function(grunt) {
       grunt.log.error('' +
           '/!\\'.red +
           ' Set an environment variable called ' +
-          'CLOSURE_PATH'.red + 'or the build parameter' + 'closurePath'.red
+          'CLOSURE_PATH'.red + 'or the build parameter' + 'closurePath'.red +
           ' and\nmake it point to your root install of Closure Compiler.' +
           '\n');
       return false;
