@@ -1,7 +1,7 @@
 {
   "name": "grunt-closure-compiler",
   "description": "A Grunt task for Closure Compiler.",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "homepage": "https://github.com/gmarty/grunt-closure-compiler",
   "author": {
     "name": "Guillaume Marty",
@@ -39,6 +39,7 @@
   "keywords": [
     "Closure Compiler",
     "Minification",
-    "Performance"
+    "Performance",
+    "gruntplugin"
   ]
 }
