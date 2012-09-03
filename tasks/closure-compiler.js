@@ -16,7 +16,7 @@ module.exports = function(grunt) {
         reportFile = '',
         data = this.data,
         done = this.async();
-        
+
     // Check for closure path.
     if (data.closurePath) {
       closurePath = data.closurePath;
