@@ -90,7 +90,7 @@ module.exports = function(grunt) {
       // If OK, calculate gzipped file size.
       if (reportFile.length) {
         var min = fs.readFileSync(data.jsOutputFile, 'utf8');
-        grunt.helper('min_info', min, function(err) {
+        min_info(min, function(err) {
           if (err) {
             grunt.warn(err);
             done(false);
@@ -114,11 +114,8 @@ module.exports = function(grunt) {
 
   });
 
-  // ==========================================================================
-  // HELPERS
-  // ==========================================================================
   // Output some size info about a file.
-  grunt.registerHelper('min_info', function(min, onComplete) {
+  function min_info(min, onComplete) {
     gzip(min, function(err, buffer) {
       if (err) {
         onComplete.call(this, err);
@@ -129,6 +126,6 @@ module.exports = function(grunt) {
 
       onComplete.call(this, null);
     });
-  });
+  }
 
 };
