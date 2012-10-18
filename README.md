@@ -184,6 +184,23 @@ grunt.initConfig({
 });
 ```
 
+To specify boolean options (such as `process_common_js_modules`, i.e. no value are required), set its value to `undefined` (or `null`):
+```javascript
+grunt.initConfig({
+  'closure-compiler': {
+    frontend: {
+      js: 'static/src/frontend.js',
+      jsOutputFile: 'static/js/frontend.min.js',
+      options: {
+        process_common_js_modules: undefined,
+        common_js_entry_module: 'exports'
+      }
+    }
+  }
+});
+```
+
+
 ## Note
 
 grunt-closure-compiler development was founded by [Dijiwan](http://www.dijiwan.com/). Our team uses it on a daily basis to minify our frontend JavaScript.
