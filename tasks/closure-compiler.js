@@ -79,7 +79,7 @@ module.exports = function(grunt) {
     }
 
     // Minify WebGraph class.
-    exec(command, function(err, stdout, stderr) {
+    exec(command, { maxBuffer: data.maxBuffer*1024 }, function(err, stdout, stderr) {
       if (err) {
         grunt.warn(err);
         done(false);

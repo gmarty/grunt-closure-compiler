@@ -26,6 +26,7 @@ grunt.initConfig({
       closurePath: '/src/to/closure-compiler',
       js: 'static/src/frontend.js',
       jsOutputFile: 'static/js/frontend.min.js',
+      maxBuffer: 500
       options: {
         compilation_level: 'ADVANCED_OPTIMIZATIONS',
         language_in: 'ECMASCRIPT5_STRICT'
@@ -40,6 +41,11 @@ grunt.initConfig({
 `js` property is always required.
 
 If `jsOutputFile` property is set, the script will be minified and saved to the file specified. Otherwise it will be output to the command line.
+
+`maxBuffer` property
+
+If the buffer returned by closure compiler is more than 200kb, you will get an error saying "maxBuffer exceeded". To prevent this, you can set the maxBuffer to the preffered size you want (in kb)
+
 
 Optionally, several parameters can be passed to `options` object.
 
