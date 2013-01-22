@@ -14,7 +14,7 @@ module.exports = function(grunt) {
 
     var closurePath = '',
         reportFile = '',
-        data = this.data,
+        data = grunt.config.process(this.name)[this.target],
         done = this.async();
 
     // Check for closure path.
