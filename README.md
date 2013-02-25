@@ -46,7 +46,6 @@ If `jsOutputFile` property is set, the script will be minified and saved to the 
 
 If the buffer returned by closure compiler is more than 200kb, you will get an error saying "maxBuffer exceeded". To prevent this, you can set the maxBuffer to the preffered size you want (in kb)
 
-
 Optionally, several parameters can be passed to `options` object.
 
 ## Documentation
@@ -55,19 +54,19 @@ Optionally, several parameters can be passed to `options` object.
 
 Install dependencies:
 ```bash
-$ sudo apt-get install svn ant openjdk-6-jdk
+$ sudo apt-get install git ant openjdk-6-jdk
 ```
 
-Then checkout the source from SVN and build:
+Then checkout the source from Git and build:
 ```bash
-$ svn checkout http://closure-compiler.googlecode.com/svn/trunk/ closure-compiler
+$ git clone https://code.google.com/p/closure-compiler/
 $ cd closure-compiler
 $ ant
 ```
 
 To refresh your build, simply call:
 ```bash
-$ svn up
+$ git pull
 $ ant clean
 $ ant
 ```
@@ -206,7 +205,6 @@ grunt.initConfig({
 });
 ```
 
-
 ## Note
 
 grunt-closure-compiler development was founded by [Dijiwan](http://www.dijiwan.com/). Our team uses it on a daily basis to minify our frontend JavaScript.
@@ -215,7 +213,7 @@ The directory structure was inspired by [grunt-less](https://github.com/jharding
 
 ## License
 
-Copyright (c) 2012 Guillaume Marty
+Copyright (c) 2013 Guillaume Marty
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation
