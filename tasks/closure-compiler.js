@@ -34,7 +34,7 @@ module.exports = function(grunt) {
 
     var command = 'java -jar ' + closurePath + '/build/compiler.jar';
 
-    data.js = grunt.file.expandFiles(data.js);
+    data.js = grunt.file.expand(data.js);
 
     // Sanitize options passed.
     if (!data.js.length) {
