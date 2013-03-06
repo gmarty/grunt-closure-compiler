@@ -108,7 +108,7 @@ This task is a [multi task](https://github.com/cowboy/grunt/blob/master/docs/typ
 
 `js` can be an array if you need to concatenate several files to a target.
 
-You can use Grunt `<config:...>` or `*` based syntax to have the file list expanded:
+You can use Grunt `<%= somePropInitConfig.sub.sub.prop %>` or `*` based syntax to have the file list expanded:
 ```javascript
 grunt.initConfig({
   'closure-compiler': {
@@ -118,7 +118,7 @@ grunt.initConfig({
     },
     frontend_debug: {
       js: [
-        '<config:closure-compiler.frontend.js>',
+        '<%= closure-compiler.frontend.js %>',
         // Will expand to 'static/src/frontend.js'
         'static/src/debug.*.js'
         // Will expand to 'static/src/debug.api.js',
@@ -173,7 +173,7 @@ grunt.initConfig({
 });
 ```
 
-Otherwise, use the `<config>` Grunt template:
+Otherwise, use the `<%= %>` Grunt template:
 ```javascript
 grunt.initConfig({
   'closure-compiler': {
@@ -182,7 +182,7 @@ grunt.initConfig({
       js: 'static/src/frontend.js',
       jsOutputFile: 'static/js/frontend.min.js',
       options: {
-        externs: '<config:closure-compiler.frontend.closurePath>/contrib/externs/jquery-1.7.js'
+        externs: '<%= closure-compiler.frontend.closurePath %>/contrib/externs/jquery-1.7.js'
       }
     }
   }
