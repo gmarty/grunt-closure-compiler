@@ -52,7 +52,7 @@ module.exports = function(grunt) {
     }
 
     if (data.externs) {
-      data.externs = grunt.file.expandFiles(data.externs);
+      data.externs = grunt.file.expand(data.externs);
       command += ' --externs ' + data.externs.join(' --externs ');
 
       if (!data.externs.length) {
@@ -61,13 +61,12 @@ module.exports = function(grunt) {
     }
 
     if (data.options.externs) {
-      data.options.externs = grunt.file.expandFiles(data.options.externs);
+      data.options.externs = grunt.file.expand(data.options.externs);
 
       if (!data.options.externs.length) {
         delete data.options.externs;
       }
     }
-
 
     for (var directive in data.options) {
       if (Array.isArray(data.options[directive])) {
@@ -80,7 +79,7 @@ module.exports = function(grunt) {
     }
 
     // Minify WebGraph class.
-    exec(command, { maxBuffer: data.maxBuffer*1024 }, function(err, stdout, stderr) {
+    exec(command, { maxBuffer: data.maxBuffer * 1024 }, function(err, stdout, stderr) {
       if (err) {
         grunt.warn(err);
         done(false);
