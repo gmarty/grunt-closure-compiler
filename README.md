@@ -26,7 +26,7 @@ grunt.initConfig({
       closurePath: '/src/to/closure-compiler',
       js: 'static/src/frontend.js',
       jsOutputFile: 'static/js/frontend.min.js',
-      maxBuffer: 500
+      maxBuffer: 500,
       options: {
         compilation_level: 'ADVANCED_OPTIMIZATIONS',
         language_in: 'ECMASCRIPT5_STRICT'
