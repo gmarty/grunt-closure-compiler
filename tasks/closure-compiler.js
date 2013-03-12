@@ -113,8 +113,10 @@ module.exports = function(grunt) {
           });
 
         });
-      } else if (data.report) {
-        grunt.log.error(stderr);
+      } else {
+        if (data.report) {
+          grunt.log.error(stderr);
+        }
         done();
       }
 
