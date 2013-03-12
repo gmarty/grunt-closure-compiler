@@ -48,7 +48,10 @@ module.exports = function(grunt) {
 
     if (data.jsOutputFile) {
       command += ' --js_output_file ' + data.jsOutputFile;
-      reportFile = data.jsOutputFile + '.report.txt';
+    }
+
+    if (data.reportFile) {
+      reportFile = data.reportFile;
     }
 
     if (data.externs) {
@@ -110,6 +113,8 @@ module.exports = function(grunt) {
           });
 
         });
+      } else if (data.report) {
+        grunt.log.error(stderr);
       }
 
     });
