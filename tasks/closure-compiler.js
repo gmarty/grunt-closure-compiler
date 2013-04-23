@@ -14,7 +14,7 @@ module.exports = function(grunt) {
 
     var closurePath = '',
         reportFile = '',
-        data = grunt.config.process(this.name)[this.target],
+        data = grunt.config.get(this.name)[this.target],
         done = this.async();
 
     // Check for closure path.
@@ -33,8 +33,7 @@ module.exports = function(grunt) {
     }
 
     var command = 'java -jar ' + closurePath + '/build/compiler.jar';
-
-    data.js = grunt.file.expandFiles(data.js);
+    data.js = grunt.file.expand(data.js, 'isFile');
 
     // Sanitize options passed.
     if (!data.js.length) {
@@ -52,7 +51,7 @@ module.exports = function(grunt) {
     }
 
     if (data.externs) {
-      data.externs = grunt.file.expandFiles(data.externs);
+      data.externs = grunt.file.expand(data.externs, 'isFile');
       command += ' --externs ' + data.externs.join(' --externs ');
 
       if (!data.externs.length) {
