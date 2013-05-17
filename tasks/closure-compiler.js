@@ -32,7 +32,7 @@ module.exports = function(grunt) {
       return false;
     }
 
-    var command = 'java -jar ' + closurePath + '/build/compiler.jar';
+    var command = 'java -jar ' + closurePath;
 
     data.js = grunt.file.expand(data.js);
 

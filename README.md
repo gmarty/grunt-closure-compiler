@@ -36,7 +36,7 @@ grunt.initConfig({
 });
 ```
 
-`closurePath` is required if you choose not to set up the `CLOSURE_PATH` environment variable. In this case, it should point to the install dir of Closure Compiler (not the subdirectory where the `compiler.jar` file is located).
+`closurePath` is required if you choose not to set up the `CLOSURE_PATH` environment variable. In this case, it should point to `compiler.jar` from closure compiler.
 
 `js` property is always required.
 
