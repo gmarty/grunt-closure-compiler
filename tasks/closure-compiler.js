@@ -48,10 +48,11 @@ module.exports = function(grunt) {
 
     if (data.jsOutputFile) {
       command += ' --js_output_file ' + data.jsOutputFile;
-    }
-
-    if (data.reportFile) {
-      reportFile = data.reportFile;
+      if ('reportFile' in data) {
+        reportFile = data.reportFile;
+      } else {
+        reportFile = data.jsOutputFile + '.report.txt';
+      }
     }
 
     if (data.externs) {
