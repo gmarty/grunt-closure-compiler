@@ -48,11 +48,7 @@ module.exports = function(grunt) {
 
     if (data.jsOutputFile) {
       command += ' --js_output_file ' + data.jsOutputFile;
-      if ('reportFile' in data) {
-        reportFile = data.reportFile;
-      } else {
-        reportFile = data.jsOutputFile + '.report.txt';
-      }
+      reportFile = data.reportFile || data.jsOutputFile + '.report.txt';
     }
 
     if (data.externs) {
@@ -102,16 +98,20 @@ module.exports = function(grunt) {
             done(false);
           }
 
-          // Write compile report to a file.
-          fs.writeFile(reportFile, stderr, function(err) {
-            if (err) {
-              grunt.warn(err);
-              done(false);
-            }
-
-            grunt.log.writeln('A report is saved in ' + reportFile + '.');
+          if (data.noreport) {
             done();
-          });
+          } else {
+            // Write compile report to a file.
+            fs.writeFile(reportFile, stderr, function(err) {
+              if (err) {
+                grunt.warn(err);
+                done(false);
+              }
+
+              grunt.log.writeln('A report is saved in ' + reportFile + '.');
+              done();
+            });
+          }
 
         });
       } else {
