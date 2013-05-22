@@ -102,6 +102,14 @@ Just append `/libexec` to what you get. In this example, you should use the foll
 /usr/local/Cellar/closure-compiler/20120710/libexec/
 ```
 
+### Minification report
+
+By default, a report file is generated next to the built file.
+
+You can specify the path and name where the report will be saved using the `reportFile` property.
+
+To deactivate report creation, set `noreport` to `true`.
+
 ### `js` property
 
 This task is a [multi task](https://github.com/cowboy/grunt/blob/master/docs/types_of_tasks.md), you can specify several targets. The task can minify many scripts at a time.
@@ -207,7 +215,7 @@ grunt.initConfig({
 
 ## Note
 
-grunt-closure-compiler development was founded by [Dijiwan](http://www.dijiwan.com/). Our team uses it on a daily basis to minify our frontend JavaScript.
+grunt-closure-compiler initial development was founded by [Dijiwan](http://www.dijiwan.com/).
 
 The directory structure was inspired by [grunt-less](https://github.com/jharding/grunt-less), a Grunt task for Less.
 
