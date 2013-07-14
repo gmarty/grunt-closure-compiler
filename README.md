@@ -46,6 +46,9 @@ If `jsOutputFile` property is set, the script will be minified and saved to the 
 
 If the buffer returned by closure compiler is more than 200kb, you will get an error saying "maxBuffer exceeded". To prevent this, you can set the maxBuffer to the preffered size you want (in kb)
 
+Use `cwd` to specify the working directory where closure compiler is called. Useful in when you want
+to process common js modules.
+
 Optionally, several parameters can be passed to `options` object.
 
 ## Documentation

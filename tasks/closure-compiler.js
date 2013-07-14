@@ -1,9 +1,14 @@
+
+// As long as the pull request is not merged we keep 
+// a local copy of grunt-closure-compiler
+
 module.exports = function(grunt) {
 
   'use strict';
 
   var exec = require('child_process').exec,
       fs = require('fs'),
+      path = require('path'),
       gzip = require('zlib').gzip;
 
   // ==========================================================================
@@ -34,7 +39,9 @@ module.exports = function(grunt) {
 
     var command = 'java -jar ' + closurePath + '/build/compiler.jar';
 
-    data.js = grunt.file.expand(data.js);
+    data.cwd = data.cwd || './';
+
+    data.js = grunt.file.expand({cwd: data.cwd}, data.js);
 
     // Sanitize options passed.
     if (!data.js.length) {
@@ -47,9 +54,14 @@ module.exports = function(grunt) {
     command += ' --js ' + data.js.join(' --js ');
 
     if (data.jsOutputFile) {
+      if ( !grunt.file.isPathAbsolute(data.jsOutputFile) ){
+        data.jsOutputFile = path.resolve('./') + '/' + data.jsOutputFile;
+      }
       command += ' --js_output_file ' + data.jsOutputFile;
       reportFile = data.reportFile || data.jsOutputFile + '.report.txt';
     }
+
+
 
     if (data.externs) {
       data.externs = grunt.file.expand(data.externs);
@@ -78,8 +90,11 @@ module.exports = function(grunt) {
       }
     }
 
+    // because closure compiler does not create dirs.
+    grunt.file.write(data.jsOutputFile, '');
+
     // Minify WebGraph class.
-    exec(command, { maxBuffer: data.maxBuffer * 1024 }, function(err, stdout, stderr) {
+    exec(command, { maxBuffer: data.maxBuffer * 1024, cwd: data.cwd }, function(err, stdout, stderr) {
       if (err) {
         grunt.warn(err);
         done(false);
@@ -140,3 +155,4 @@ module.exports = function(grunt) {
   }
 
 };
+
