@@ -216,6 +216,25 @@ grunt.initConfig({
 });
 ```
 
+For automatic resolving common js modules you can use 
+```javascript
+grunt.initConfig({
+  'closure-compiler': {
+    frontend: {
+      cwd: 'static/src/'
+      js: '*.js',
+      jsOutputFile: 'static/js/frontend.min.js',
+      options: {
+        common_js_entry_module: 'frontend.js',
+        transform_amd_modules: undefined,
+        process_common_js_modules: undefined
+      }
+    }
+  }
+});
+```
+
+
 ## Note
 
 grunt-closure-compiler initial development was founded by [Dijiwan](http://www.dijiwan.com/).
