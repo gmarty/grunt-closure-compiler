@@ -1,7 +1,3 @@
-
-// As long as the pull request is not merged we keep 
-// a local copy of grunt-closure-compiler
-
 module.exports = function(grunt) {
 
   'use strict';
@@ -60,8 +56,6 @@ module.exports = function(grunt) {
       command += ' --js_output_file ' + data.jsOutputFile;
       reportFile = data.reportFile || data.jsOutputFile + '.report.txt';
     }
-
-
 
     if (data.externs) {
       data.externs = grunt.file.expand(data.externs);
@@ -155,4 +149,3 @@ module.exports = function(grunt) {
   }
 
 };
-
