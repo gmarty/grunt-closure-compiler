@@ -50,7 +50,7 @@ module.exports = function(grunt) {
     command += ' --js ' + data.js.join(' --js ');
 
     if (data.jsOutputFile) {
-      if ( !grunt.file.isPathAbsolute(data.jsOutputFile) ){
+      if (!grunt.file.isPathAbsolute(data.jsOutputFile)) {
         data.jsOutputFile = path.resolve('./') + '/' + data.jsOutputFile;
       }
       command += ' --js_output_file ' + data.jsOutputFile;
