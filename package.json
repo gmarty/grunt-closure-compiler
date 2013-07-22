@@ -1,7 +1,7 @@
 {
   "name": "grunt-closure-compiler",
   "description": "A Grunt task for Closure Compiler.",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "homepage": "https://github.com/gmarty/grunt-closure-compiler",
   "author": {
     "name": "Guillaume Marty",
