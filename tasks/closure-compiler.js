@@ -36,27 +36,43 @@ module.exports = function(grunt) {
     var command = 'java -jar ' + closurePath + '/build/compiler.jar';
 
     data.cwd = data.cwd || './';
+    if(data.modules){
+  	//data.modules = grunt.file.expand(data.modules);
+		  for(var i=0;i<data.modules.length;i++)
+		  {
+		  	var js=grunt.file.expand({cwd:data.cwd},data.modules[i].js)
+			  command += ' --js ' + js.join(' --js ');
+			  command +=' --module '+data.modules[i].jsOutputFile+":"+js.length;
+		  	var realpath=data.options.module_output_path_prefix+data.modules[i].jsOutputFile+".js";
+			  if(!grunt.file.exists(realpath))grunt.file.write(realpath,"")
+		
+			  if(data.modules[i].dependence)
+		  	command+=":"+data.modules[i].dependence;
+			
+			}
+		}
+  	else{
 
-    data.js = grunt.file.expand({cwd: data.cwd}, data.js);
+      data.js = grunt.file.expand({cwd: data.cwd}, data.js);
 
     // Sanitize options passed.
-    if (!data.js.length) {
+      if (!data.js.length) {
       // This task requires a minima an input file.
       grunt.warn('Missing js property.');
       return false;
-    }
+      }
 
     // Build command line.
-    command += ' --js ' + data.js.join(' --js ');
+      command += ' --js ' + data.js.join(' --js ');
 
-    if (data.jsOutputFile) {
-      if (!grunt.file.isPathAbsolute(data.jsOutputFile)) {
-        data.jsOutputFile = path.resolve('./') + '/' + data.jsOutputFile;
+      if (data.jsOutputFile) {
+        if (!grunt.file.isPathAbsolute(data.jsOutputFile)) {
+          data.jsOutputFile = path.resolve('./') + '/' + data.jsOutputFile;
+        }
+        command += ' --js_output_file ' + data.jsOutputFile;
+        reportFile = data.reportFile || data.jsOutputFile + '.report.txt';
       }
-      command += ' --js_output_file ' + data.jsOutputFile;
-      reportFile = data.reportFile || data.jsOutputFile + '.report.txt';
     }
-
     if (data.externs) {
       data.externs = grunt.file.expand(data.externs);
       command += ' --externs ' + data.externs.join(' --externs ');
