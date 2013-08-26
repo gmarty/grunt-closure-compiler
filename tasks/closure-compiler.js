@@ -33,7 +33,7 @@ module.exports = function(grunt) {
       return false;
     }
 
-    var command = 'java -jar ' + closurePath + '/build/compiler.jar';
+    var command = 'java -jar "' + closurePath + '/build/compiler.jar"';
 
     data.cwd = data.cwd || './';
 
@@ -47,13 +47,13 @@ module.exports = function(grunt) {
     }
 
     // Build command line.
-    command += ' --js ' + data.js.join(' --js ');
+    command += ' --js "' + data.js.join('" --js "') + '"';
 
     if (data.jsOutputFile) {
       if (!grunt.file.isPathAbsolute(data.jsOutputFile)) {
         data.jsOutputFile = path.resolve('./') + '/' + data.jsOutputFile;
       }
-      command += ' --js_output_file ' + data.jsOutputFile;
+      command += ' --js_output_file "' + data.jsOutputFile + '"';
       reportFile = data.reportFile || data.jsOutputFile + '.report.txt';
     }
 
