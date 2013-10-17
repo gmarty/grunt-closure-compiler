@@ -32,8 +32,12 @@ module.exports = function(grunt) {
           '\n');
       return false;
     }
+    
+    if(closurePath.indexOf('.jar')-closurePath.length!==-4) {
+      closurePath += '/build/compiler.jar';
+    }
 
-    var command = 'java -jar "' + closurePath + '/build/compiler.jar"';
+    var command = 'java -jar "' + closurePath + '"';
 
     data.cwd = data.cwd || './';
 
