@@ -57,7 +57,7 @@ Optionally, several parameters can be passed to `options` object.
 
 Install dependencies:
 ```bash
-$ sudo apt-get install git ant openjdk-6-jdk
+$ sudo apt-get install git ant openjdk-7-jdk
 ```
 
 Then checkout the source from Git and build:
