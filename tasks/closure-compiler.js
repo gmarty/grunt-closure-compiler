@@ -16,8 +16,7 @@ module.exports = function(grunt) {
     var closurePath = '',
         reportFile = '',
         data = this.data,
-        done = this.async(),
-        sourceMapName;
+        done = this.async();
 
     // Check for closure path.
     if (data.closurePath) {
@@ -49,20 +48,6 @@ module.exports = function(grunt) {
 
     // Build command line.
     command += ' --js "' + data.js.join('" --js "') + '"';
-
-    // Build Source Map
-    if (data.sourceMap) {
-      if (typeof data.sourceMap == 'boolean' && data.jsOutputFile) data.sourceMap = data.jsOutputFile + '.map';
-
-      if (!grunt.file.isPathAbsolute(data.sourceMap)) {
-        data.sourceMap = path.resolve('./') + '/' + data.sourceMap;
-      }
-
-      sourceMapName = path.basename(data.sourceMap);
-
-      command += ' --create_source_map "' + data.sourceMap + '"';
-      command += ' --source_map_format=V3';
-    }
 
     if (data.jsOutputFile) {
       if (!grunt.file.isPathAbsolute(data.jsOutputFile)) {
@@ -110,8 +95,8 @@ module.exports = function(grunt) {
       }
 
       // Check to see if we should add the source map comment to end of file
-      if (data.sourceMap && data.sourceMapUrl) {
-        if (typeof data.sourceMapUrl == 'boolean') data.sourceMapUrl = sourceMapName;
+      if (data.sourceMapUrl && data.options.create_source_map) {
+        if (typeof data.sourceMapUrl == 'boolean') data.sourceMapUrl = path.basename(data.jsOutputFile) + '.map';
 
         fs.appendFile(data.jsOutputFile, '//# sourceMappingURL=' + data.sourceMapUrl, function (err) {
           grunt.log.writeln('Could not add sourceMappingURL!');
