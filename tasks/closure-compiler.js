@@ -96,7 +96,9 @@ module.exports = function(grunt) {
 
       // Check to see if we should add the source map comment to end of file
       if (data.sourceMapUrl && data.options.create_source_map) {
-        if (typeof data.sourceMapUrl == 'boolean') data.sourceMapUrl = path.basename(data.options.create_source_map);
+        if (typeof data.sourceMapUrl == 'boolean') {
+          data.sourceMapUrl = path.basename(data.options.create_source_map);
+        }
 
         fs.appendFile(data.jsOutputFile, '//# sourceMappingURL=' + data.sourceMapUrl, function (err) {
           grunt.log.writeln('Could not add sourceMappingURL!');
