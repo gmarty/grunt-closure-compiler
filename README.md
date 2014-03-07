@@ -26,10 +26,12 @@ grunt.initConfig({
       closurePath: '/src/to/closure-compiler',
       js: 'static/src/frontend.js',
       jsOutputFile: 'static/js/frontend.min.js',
+      sourceMapUrl: true,
       maxBuffer: 500,
       options: {
         compilation_level: 'ADVANCED_OPTIMIZATIONS',
-        language_in: 'ECMASCRIPT5_STRICT'
+        language_in: 'ECMASCRIPT5_STRICT',
+        create_source_map: 'src.js.map'
       }
     }
   }
@@ -41,6 +43,8 @@ grunt.initConfig({
 `js` property is always required.
 
 If `jsOutputFile` property is set, the script will be minified and saved to the file specified. Otherwise it will be output to the command line.
+
+If the `sourceMapUrl` property is set to a truthy value, the sourceMappingURL comment is appended to the generated JS file. If you pass this property as a string value, the sourceMappingURL will be set to that value. Otherwise, boolean true assumes the file name with a .map extension.
 
 `maxBuffer` property
 
