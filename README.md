@@ -233,8 +233,36 @@ grunt.initConfig({
   }
 });
 ```
+### `modules` property
+Closure compiler can be used to procude multiple JS files, using the --module parameter and related ones. These modules can have dependencies, can be the result of multiple JS source files, and can be wrapped. The ```jsOutputFile``` parameter is useless using modules, but a directory can be specified using ```output_path_prefix```.
+#### Parameters
+```output_path_prefix``` specifies a prefix to append to the output files. Can be either a directory or just a string.
+
+```definitions``` must contain the description of each module. Available parameters are:
 
 
+
+- ```files``` : (Required) Array of source file to in clude in the module
+- ```dependencies``` : (Optional) Array of modules it depends on. If ModuleB requires ModuleA, then ModuleB definition must include ```dependencies:['ModuleA']```.
+- ```wrapper``` : (Optional) string to wrap the resulting module code in. Placeholder for the code is %s. module name can be inserted using the placeholder %basename% (please refer to Closure Compiler documentation for more detailed information on wrapping).
+
+    
+    	modules: {
+            output_path_prefix: '.\\compiled\\',
+            definitions: {
+                'Core':{
+                    files:['src\\builder.js','src\\events.js','src\\plugins.js','src\\storage.js','src\\core.js','src\\main.js'],
+                    dependencies:[],
+                    wrapper:'(function(){ %s }).call(window);'
+                },
+                'sample':{
+                    files:['src\\plugins\\sample.js'],
+                    dependencies:['Core'],
+                    wrapper:'(function(){ %s }).call(window);'
+                }
+            }
+        }
+```
 ## Note
 
 grunt-closure-compiler initial development was founded by [Dijiwan](http://www.dijiwan.com/).
