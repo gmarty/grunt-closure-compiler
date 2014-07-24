@@ -14,6 +14,7 @@ module.exports = function(grunt) {
   grunt.registerMultiTask('closure-compiler', 'Minify JS files using Closure Compiler.', function() {
 
     var closurePath = '',
+        jarPath = '',
         reportFile = '',
         data = this.data,
         done = this.async();
@@ -33,7 +34,8 @@ module.exports = function(grunt) {
       return false;
     }
 
-    var command = 'java -jar "' + closurePath + '/build/compiler.jar"';
+    var jarPath = data.jarPath || ( closurePath + '/build/compiler.jar' );
+    var command = 'java -jar "' + jarPath + '"';
 
     data.cwd = data.cwd || './';
 
