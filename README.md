@@ -113,6 +113,30 @@ You can specify the path and name where the report will be saved using the `repo
 
 To deactivate report creation, set `noreport` to `true`.
 
+### `javaBin` property
+
+The default JVM on your system will be used to run the closure compiler. For most users, this will be a 64-bit JVM. The closure compiler is much faster when run with a 32bit JVM and in client mode. You can read more about this at the [closure compiler FAQ](https://code.google.com/p/closure-compiler/wiki/FAQ).
+
+Rather than deal with the hassle of trying to run multiple versions of the JVM it is simpler to download it to a directory and without modifying any environment variables, call the java binary using an absolute path.
+
+You can download a 32bit version of java from here: http://www.oracle.com/technetwork/java/javase/downloads/index.html. As an example, download the Java SE 8 JDK, extract the contents and move the directory to the desired location such as `/opt` in a linux environment. You will end up with a path such as `/opt/jdk1.8.0_20`.
+
+You can then use the javaBin property to specify a custom java binary command such as:
+
+```javascript
+grunt.initConfig({
+  'closure-compiler': {
+    frontend: {
+      javaBin: '/opt/jdk1.8.0_20/bin/java -client -d32',
+      js: 'static/src/frontend.js',
+      jsOutputFile: 'static/js/frontend.min.js',
+    }
+  }
+})
+```
+
+It is not unusual to gain an order of magnitude gain in performance when compiling many files in this way.
+
 ### `js` property
 
 This task is a [multi task](https://github.com/cowboy/grunt/blob/master/docs/types_of_tasks.md), you can specify several targets. The task can minify many scripts at a time.
