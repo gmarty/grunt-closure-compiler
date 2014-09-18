@@ -67,7 +67,7 @@ module.exports = function(grunt) {
             }
         }
 
-        if (data.options.externs) {
+        if (data.options && data.options.externs) {
             data.options.externs = grunt.file.expand(data.options.externs);
 
             if (!data.options.externs.length) {
