@@ -58,16 +58,17 @@ module.exports = function(grunt) {
     }
 
     if (data.externs) {
-      data.externs = grunt.file.expand(data.externs);
-      command += ' --externs ' + data.externs.join(' --externs ');
+      data.externs = grunt.file.expand({cwd: data.cwd}, data.externs);
 
       if (!data.externs.length) {
         delete data.externs;
+      } else {
+        command += ' --externs ' + data.externs.join(' --externs ');
       }
     }
 
     if (data.options.externs) {
-      data.options.externs = grunt.file.expand(data.options.externs);
+      data.options.externs = grunt.file.expand({cwd: data.cwd}, data.options.externs);
 
       if (!data.options.externs.length) {
         delete data.options.externs;
