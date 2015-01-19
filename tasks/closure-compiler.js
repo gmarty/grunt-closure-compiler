@@ -59,10 +59,11 @@ module.exports = function(grunt) {
 
     if (data.externs) {
       data.externs = grunt.file.expand({cwd: data.cwd}, data.externs);
-      command += ' --externs ' + data.externs.join(' --externs ');
 
       if (!data.externs.length) {
         delete data.externs;
+      } else {
+        command += ' --externs ' + data.externs.join(' --externs ');
       }
     }
 
