@@ -5,35 +5,24 @@ module.exports = function(grunt) {
     var exec = require('child_process').exec,
         fs = require('fs'),
         path = require('path'),
-        gzip = require('zlib').gzip;
+        gzip = require('zlib').gzip,
+		closurePath = require.resolve('google-closure-compiler');
 
+	if (closurePath) {
+		closurePath = closurePath.replace(/package\.json$/, 'compiler.jar');
+	}
+	
     // ==========================================================================
     // TASKS
     // ==========================================================================
 
     grunt.registerMultiTask('closure-compiler', 'Minify JS files using Closure Compiler.', function() {
 
-        var closurePath = '',
-            reportFile = '',
+        var reportFile = '',
             data = this.data,
             done = this.async();
 
-        // Check for closure path.
-        if (data.closurePath) {
-            closurePath = data.closurePath;
-        } else if (process.env.CLOSURE_PATH) {
-            closurePath = process.env.CLOSURE_PATH;
-        } else {
-            grunt.log.error('' +
-                '/!\\'.red +
-                ' Set an environment variable called ' +
-                'CLOSURE_PATH'.red + ' or the build parameter' + 'closurePath'.red +
-                ' and\nmake it point to your root install of Closure Compiler.' +
-                '\n');
-            return false;
-        }
-
-        var command = 'java -jar "' + closurePath + '/build/compiler.jar"';
+        var command = 'java -jar "' + closurePath + '"';
         data.cwd = data.cwd || './';
 
         data.js = grunt.file.expand({cwd: data.cwd}, data.js||[]);
