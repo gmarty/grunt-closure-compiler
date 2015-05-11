@@ -1,4 +1,4 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 
   'use strict';
 
@@ -11,7 +11,7 @@ module.exports = function(grunt) {
   // TASKS
   // ==========================================================================
 
-  grunt.registerMultiTask('closure-compiler', 'Minify JS files using Closure Compiler.', function() {
+  grunt.registerMultiTask('closure-compiler', 'Minify JS files using Closure Compiler.', function () {
 
     var closurePath = '',
         reportFile = '',
@@ -33,7 +33,18 @@ module.exports = function(grunt) {
       return false;
     }
 
-    var command = 'java -jar "' + closurePath + '/build/compiler.jar"';
+    // Add String.endsWith function
+    if (typeof String.prototype.endsWith !== 'function') {
+      String.prototype.endsWith = function (suffix) {
+        return this.indexOf(suffix, this.length - suffix.length) !== -1;
+      };
+    }
+
+    // Append filepath if jar is not specified
+    if (!closurePath.endsWith('.jar')) {
+      closurePath += '/build/compiler.jar';
+    }
+    var command = 'java -jar "' + closurePath + '"';
 
     data.cwd = data.cwd || './';
 
@@ -88,7 +99,7 @@ module.exports = function(grunt) {
     grunt.file.write(data.jsOutputFile, '');
 
     // Minify WebGraph class.
-    exec(command, { maxBuffer: data.maxBuffer * 1024, cwd: data.cwd }, function(err, stdout, stderr) {
+    exec(command, { maxBuffer: data.maxBuffer * 1024, cwd: data.cwd }, function (err, stdout, stderr) {
       if (err) {
         grunt.warn(err);
         done(false);
@@ -101,7 +112,7 @@ module.exports = function(grunt) {
       // If OK, calculate gzipped file size.
       if (reportFile.length) {
         var min = fs.readFileSync(data.jsOutputFile, 'utf8');
-        min_info(min, function(err) {
+        min_info(min, function (err) {
           if (err) {
             grunt.warn(err);
             done(false);
@@ -111,7 +122,7 @@ module.exports = function(grunt) {
             done();
           } else {
             // Write compile report to a file.
-            fs.writeFile(reportFile, stderr, function(err) {
+            fs.writeFile(reportFile, stderr, function (err) {
               if (err) {
                 grunt.warn(err);
                 done(false);
@@ -136,7 +147,7 @@ module.exports = function(grunt) {
 
   // Output some size info about a file.
   function min_info(min, onComplete) {
-    gzip(min, function(err, buffer) {
+    gzip(min, function (err, buffer) {
       if (err) {
         onComplete.call(this, err);
       }
