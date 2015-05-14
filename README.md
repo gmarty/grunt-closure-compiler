@@ -4,7 +4,7 @@ A Grunt task for [Closure Compiler](https://developers.google.com/closure/compil
 
 ## Getting Started
 
-First you need to download a [build of Closure Compiler](http://code.google.com/p/closure-compiler/downloads/list) or build it [from the source](http://code.google.com/p/closure-compiler/source/checkout) (see [details below](#closure-compiler-installation-from-source)).
+First you need to download a [build of Closure Compiler](https://github.com/google/closure-compiler/releases) or build it [from the source](https://github.com/google/closure-compiler) (see [details below](#closure-compiler-installation-from-source)).
 
 Optionally, you can set up an environment variable called `CLOSURE_PATH` that points to your Closure Compiler dir (see [details below](#set-up-the-environment-variable)).
 
@@ -62,7 +62,7 @@ $ sudo apt-get install git ant openjdk-7-jdk
 
 Then checkout the source from Git and build:
 ```bash
-$ git clone https://code.google.com/p/closure-compiler/
+$ git clone https://github.com/google/closure-compiler.git
 $ cd closure-compiler
 $ ant
 ```
