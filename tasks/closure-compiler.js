@@ -42,7 +42,7 @@ module.exports = function(grunt) {
     // Sanitize options passed.
     if (!data.js.length) {
       // This task requires a minima an input file.
-      grunt.warn('Missing js property.');
+      grunt.warn('No data found in file.');
       return false;
     }
 
