@@ -4,10 +4,6 @@ A Grunt task for [Closure Compiler](https://developers.google.com/closure/compil
 
 ## Getting Started
 
-First you need to download a [build of Closure Compiler](http://code.google.com/p/closure-compiler/downloads/list) or build it [from the source](http://code.google.com/p/closure-compiler/source/checkout) (see [details below](#closure-compiler-installation-from-source)).
-
-Optionally, you can set up an environment variable called `CLOSURE_PATH` that points to your Closure Compiler dir (see [details below](#set-up-the-environment-variable)).
-
 Install this module on your project's [grunt.js gruntfile](https://github.com/cowboy/grunt/blob/master/docs/getting_started.md):
 ```bash
 $ npm install grunt-closure-compiler
@@ -23,7 +19,6 @@ Then you can minify JavaScript calling:
 grunt.initConfig({
   'closure-compiler': {
     frontend: {
-      closurePath: '/src/to/closure-compiler',
       js: 'static/src/frontend.js',
       jsOutputFile: 'static/js/frontend.min.js',
       maxBuffer: 500,
@@ -35,8 +30,6 @@ grunt.initConfig({
   }
 });
 ```
-
-`closurePath` is required if you choose not to set up the `CLOSURE_PATH` environment variable. In this case, it should point to the install dir of Closure Compiler (not the subdirectory where the `compiler.jar` file is located).
 
 `js` property is always required.
 
@@ -53,57 +46,9 @@ Optionally, several parameters can be passed to `options` object.
 
 ## Documentation
 
-### Closure Compiler installation from source
+### Specify the Closure Compiler Version
 
-Install dependencies:
-```bash
-$ sudo apt-get install git ant openjdk-7-jdk
-```
-
-Then checkout the source from Git and build:
-```bash
-$ git clone https://code.google.com/p/closure-compiler/
-$ cd closure-compiler
-$ ant
-```
-
-To refresh your build, simply call:
-```bash
-$ git pull
-$ ant clean
-$ ant
-```
-
-#### Mac
-
-Mac users can install it from brew:
-```bash
-$ brew install closure-compiler
-```
-
-### Set up the environment variable
-
-Setting up a `CLOSURE_PATH` environment variable is preferred because:
-
-* You don't have to specify the `closurePath` each time.
-* It makes it easy to use contributed externs.
-
-In case you're wondering, Closure Compiler utilizes continuous integration, so it's unlikely to break.
-
-If you create the `CLOSURE_PATH` environment variable, make sure to have it pointing to the `closure-compiler` dir created earlier (and not to the `build` subdirectory where the jar is located).
-
-#### Mac
-
-On Mac, when installed with brew, you can get the install path using:
-```bash
-$ brew --prefix closure-compiler
-/usr/local/Cellar/closure-compiler/20120710
-```
-
-Just append `/libexec` to what you get. In this example, you should use the following path:
-```
-/usr/local/Cellar/closure-compiler/20120710/libexec/
-```
+Closure-compiler is [distributed via NPM](https://www.npmjs.com/package/google-closure-compiler). You may specify the version of Closure-compiler used in your package.json.
 
 ### Minification report
 
@@ -169,31 +114,17 @@ grunt.initConfig({
 });
 ```
 
-When defining externs, if you added the `CLOSURE_PATH` environment variable you can easily reference Closure Compiler builtin externs using `<%= process.env.CLOSURE_PATH %>` Grunt template:
+When using externs, you can easily reference Closure Compiler contributed externs which are distributed as part of the NPM package:
 ```javascript
-grunt.initConfig({
-  'closure-compiler': {
-    frontend: {
-      js: 'static/src/frontend.js',
-      jsOutputFile: 'static/js/frontend.min.js',
-      options: {
-        externs: '<%= process.env.CLOSURE_PATH %>/contrib/externs/jquery-1.7.js',
-      }
-    }
-  }
-});
-```
+var closurePath = require.resolve('google-closure-compiler').replace(/package\.json$/, '');
 
-Otherwise, use the `<%= %>` Grunt template:
-```javascript
 grunt.initConfig({
   'closure-compiler': {
     frontend: {
-      closurePath: '/src/to/closure-compiler',
       js: 'static/src/frontend.js',
       jsOutputFile: 'static/js/frontend.min.js',
       options: {
-        externs: '<%= closure-compiler.frontend.closurePath %>/contrib/externs/jquery-1.7.js'
+        externs: '<%= closurePath %>/contrib/externs/jquery-1.7.js',
       }
     }
   }
