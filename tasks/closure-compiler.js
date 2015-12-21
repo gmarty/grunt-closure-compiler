@@ -23,7 +23,7 @@ module.exports = function(grunt) {
             done = this.async();
         
         if(data.closurePath){
-            closurePath = data.closurePath + '/compiler.jar';
+            closurePath = data.closurePath + 'compiler.jar';
         }
             
         var command = 'java -jar "' + closurePath + '"';
