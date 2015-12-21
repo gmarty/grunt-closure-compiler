@@ -21,7 +21,11 @@ module.exports = function(grunt) {
         var reportFile = '',
             data = this.data,
             done = this.async();
-
+        
+        if(data.closurePath){
+            closurePath = closurePath + '/compiler.jar';
+        }
+            
         var command = 'java -jar "' + closurePath + '"';
         data.cwd = data.cwd || './';
 

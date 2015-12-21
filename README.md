@@ -31,6 +31,8 @@ grunt.initConfig({
 });
 ```
 
+`closureCompiler`: (Optional) can be set to the closure compiler Path, if it has not been installed from sources.
+
 `js` property is always required.
 
 If `jsOutputFile` property is set, the script will be minified and saved to the file specified. Otherwise it will be output to the command line.
