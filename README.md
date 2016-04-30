@@ -62,7 +62,7 @@ $ sudo apt-get install git ant openjdk-7-jdk
 
 Then checkout the source from Git and build:
 ```bash
-$ git clone https://code.google.com/p/closure-compiler/
+$ git clone https://github.com/google/closure-compiler
 $ cd closure-compiler
 $ ant
 ```
