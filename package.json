@@ -31,7 +31,7 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "grunt": "^1.0.1"
+    "grunt": "1.0.1"
   },
   "keywords": [
     "Closure Compiler",
