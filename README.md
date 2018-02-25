@@ -8,7 +8,7 @@ First you need to download a [build of Closure Compiler](http://code.google.com/
 
 Optionally, you can set up an environment variable called `CLOSURE_PATH` that points to your Closure Compiler dir (see [details below](#set-up-the-environment-variable)).
 
-Install this module on your project's [grunt.js gruntfile](https://github.com/cowboy/grunt/blob/master/docs/getting_started.md):
+Install this module on your project's [grunt.js gruntfile](https://gruntjs.com/getting-started#the-gruntfile):
 ```bash
 $ npm install grunt-closure-compiler
 ```
@@ -115,7 +115,7 @@ To deactivate report creation, set `noreport` to `true`.
 
 ### `js` property
 
-This task is a [multi task](https://github.com/cowboy/grunt/blob/master/docs/types_of_tasks.md), you can specify several targets. The task can minify many scripts at a time.
+This task is a [multi task](https://gruntjs.com/creating-tasks#multi-tasks), you can specify several targets. The task can minify many scripts at a time.
 
 `js` can be an array if you need to concatenate several files to a target.
 
