@@ -36,25 +36,34 @@ module.exports = function(grunt) {
     var command = 'java -jar "' + closurePath + '/build/compiler.jar"';
 
     data.cwd = data.cwd || './';
+    
+    var output_mode;
+    
+    // --module mode
+    if ("modules" in data) {
+      output_mode = 'modules';
+    } else { // --js mode
+      output_mode = 'js';
+      
+      data.js = grunt.file.expand({cwd: data.cwd}, data.js);
 
-    data.js = grunt.file.expand({cwd: data.cwd}, data.js);
-
-    // Sanitize options passed.
-    if (!data.js.length) {
-      // This task requires a minima an input file.
-      grunt.warn('Missing js property.');
-      return false;
-    }
-
-    // Build command line.
-    command += ' --js "' + data.js.join('" --js "') + '"';
-
-    if (data.jsOutputFile) {
-      if (!grunt.file.isPathAbsolute(data.jsOutputFile)) {
-        data.jsOutputFile = path.resolve('./') + '/' + data.jsOutputFile;
+      // Sanitize options passed.
+      if (!data.js.length) {
+        // This task requires a minima an input file.
+        grunt.warn('Missing js property.');
+        return false;
       }
-      command += ' --js_output_file "' + data.jsOutputFile + '"';
-      reportFile = data.reportFile || data.jsOutputFile + '.report.txt';
+
+      // Build command line.
+      command += ' --js "' + data.js.join('" --js "') + '"';
+
+      if (data.jsOutputFile) {
+        if (!grunt.file.isPathAbsolute(data.jsOutputFile)) {
+          data.jsOutputFile = path.resolve('./') + '/' + data.jsOutputFile;
+        }
+        command += ' --js_output_file "' + data.jsOutputFile + '"';
+        reportFile = data.reportFile || data.jsOutputFile + '.report.txt';
+      }
     }
 
     if (data.externs) {
@@ -84,8 +93,34 @@ module.exports = function(grunt) {
       }
     }
 
-    // because closure compiler does not create dirs.
-    grunt.file.write(data.jsOutputFile, '');
+    if (output_mode === 'js') {
+      // because closure compiler does not create dirs.
+      grunt.file.write(data.jsOutputFile, '');
+    } else { // modules
+      
+      for (var module in data.modules) {
+          
+          // @todo add --define option for modules
+          //command += '" --define="DEBUG=false"';
+        
+          data.modules[module].src.forEach(function(src) {
+              command += ' --js "' + src + '"';
+          });
+        
+          command += ' --module "' + module + ':' + data.modules[module].src.length + ':';
+        
+          // add dependency
+          if (data.modules[module].dep) {
+              command += data.modules[module].dep.join(',');
+              command += ':';
+          }
+          command += '"';
+      }
+
+      // module output directory
+      command += ' --module_output_path_prefix ' + data.moduleOutputPath;
+      
+    }
 
     // Minify WebGraph class.
     exec(command, { maxBuffer: data.maxBuffer * 1024, cwd: data.cwd }, function(err, stdout, stderr) {
