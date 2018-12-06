@@ -234,6 +234,38 @@ grunt.initConfig({
 });
 ```
 
+## Module Code Splitting
+
+Closure Compiler can split the output of a compilation into multiple files to support dynamic loading. This process uses the `--chunk` flag (before June 2018 it was named `--module`). See [how do I split my javascript into modules](https://stackoverflow.com/questions/10395810/how-do-i-split-my-javascript-into-modules-using-googles-closure-compiler/10401030#10401030)
+
+Modules can be stitched together without a module loading logic enabling to achieve optimal compression and optimization with the ability to load modules selectively.
+
+Source: https://github.com/google/closure-compiler/wiki/JS-Modules#code-splitting-output-modules
+
+```javascript
+grunt.initConfig({
+  'closure-compiler': {
+    frontend: {
+      closurePath: '/src/to/closure-compiler',
+      modules: {
+        "module-name": {
+          src: ['js/source.js', 'js/other-source.js']
+        },
+        "extra-module": {
+          src: ['js/extra-module.js'],
+          dep: ['module-name']
+        }
+      },
+      moduleOutputPath: 'static/js/',
+      maxBuffer: 500,
+      options: {
+        compilation_level: 'ADVANCED_OPTIMIZATIONS',
+        language_in: 'ECMASCRIPT5_STRICT'
+      }
+    }
+  }
+});
+```
 
 ## Note
 
